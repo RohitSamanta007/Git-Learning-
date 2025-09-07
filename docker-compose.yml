@@ -1,16 +1,21 @@
 services:
   backend:
-    build: ./server
+    build: 
+      context: ./server
+      args:
+        PORT: 3000
+        MONGO_URI: mongodb+srv://rohit:12345@cluster0.zun5yrg.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
     container_name: backend
     restart: always
-    env_file:
-      ./server/.env
     ports:
       - "3000:3000"
   
 
   frontend:
-    build: ./client
+    build: 
+      context: ./client
+      args:
+        VITE_API_URL: http://13.233.200.191:3000/api
     container_name: frontend
     restart: always
     ports:
